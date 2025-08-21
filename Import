@@ -1,0 +1,41 @@
+##March to April STEP 1 reading the data and put it in an object
+activityMarch <-  read_csv("mturkfitbit_export_3.12.16-4.11.16/Fitabase Data 3.12.16-4.11.16/dailyActivity_merged.csv")
+View(activityMarch)
+
+caloriesHourlyMarch <-  read_csv("mturkfitbit_export_3.12.16-4.11.16/Fitabase Data 3.12.16-4.11.16/hourlyCalories_merged.csv")
+View(caloriesHourlyMarch)
+
+intensityHourlyMarch <-  read_csv("mturkfitbit_export_3.12.16-4.11.16/Fitabase Data 3.12.16-4.11.16/hourlyIntensities_merged.csv")
+View(intensityHourlyMarch)
+
+stepshourlyMarch <-  read_csv("mturkfitbit_export_3.12.16-4.11.16/Fitabase Data 3.12.16-4.11.16/hourlySteps_merged.csv")
+View(stepshourlyMarch)
+
+intensitiesMinuteMarch <-  read_csv("mturkfitbit_export_3.12.16-4.11.16/Fitabase Data 3.12.16-4.11.16/minuteIntensitiesNarrow_merged.csv")
+View(intensitiesMinuteMarch)
+
+sleepMarch <-  read_csv("mturkfitbit_export_3.12.16-4.11.16/Fitabase Data 3.12.16-4.11.16/minuteSleep_merged.csv")
+View(sleepMarch)
+
+##April to May STEP 2
+
+activityMay <-  read_csv("mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/dailyActivityMAY.csv")
+View(activityMay)
+
+caloriesHourlyMay <-  read_csv("mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/hourlyCaloriesMAY.csv")
+View(caloriesHourlyMay)
+
+intensityHourlyMay <-  read_csv("mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/hourlyIntensitiesMAY.csv")
+View(intensityHourlyMay)
+
+stepshourlyMay <-  read_csv("mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/hourlyStepsMAY.csv")
+View(stepshourlyMay)
+
+intensitiesMinuteMay <-  read_csv("mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/minuteIntensitiesNarrowMAY.csv")
+View(intensitiesMinuteMay)
+
+sleepMay <-  read_csv("mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/minuteSleepMAY.csv")
+View(sleepMay)
+
+SleepDay <-  read_csv("mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/sleepDayMAY.csv")
+View(SleepDay)
