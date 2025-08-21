@@ -39,3 +39,24 @@ View(sleepMay)
 
 SleepDay <-  read_csv("mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/sleepDayMAY.csv")
 View(SleepDay)
+
+
+##Merging Data STEP3
+
+Activity <- rbind(activityMarch, activityMay)
+View(Activity)
+
+HourlyCalories <-rbind(caloriesHourlyMarch, caloriesHourlyMay)
+View(HourlyCalories)
+
+HourlyIntensities <-rbind(intensityHourlyMarch, intensityHourlyMay)
+View(HourlyIntensities)
+
+HourlySteps <-rbind(stepshourlyMarch, stepshourlyMay)
+View(HourlySteps)
+
+MinuteIntensities <-rbind(intensitiesMinuteMarch, intensitiesMinuteMay)
+View(MinuteIntensities)
+
+Sleep <-rbind(sleepMarch, sleepMay)
+View(Sleep)
