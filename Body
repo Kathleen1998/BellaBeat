@@ -1,0 +1,256 @@
+##Activity ---------------------------------------------------------------------
+## Step v. Calories
+ggplot(Activity, aes(x = TotalSteps, y = Calories)) +
+  geom_point() +
+  geom_smooth(method = "lm", linetype = "solid", color = "pink")
+
+
+## Average steps a day / Weekday vs weekend// ## Popular time of the week
+Activity2 <- Activity
+
+ActivityMonths <- Activity2 %>%
+  mutate (ActivityDate = month(ActivityDate)) %>%
+  group_by(ActivityDate) %>%
+  summarize(AverageSteps = mean(TotalSteps))
+
+
+ActivityWeekdays <- Activity2 %>%
+  mutate (ActivityDate = weekdays(ActivityDate)) %>%
+  group_by(ActivityDate) %>%
+  summarize(AverageSteps = mean(TotalSteps))
+
+
+## Users per step range// ## How many people walked less than 1000, more than 2000,3,4,5 etc
+
+PerUserStep <- Activity2 %>%
+  group_by(Id) %>%
+  summarize(AverageSteps = mean(TotalSteps))
+
+PerUserStep %>%
+  count(perThou = round(AverageSteps, -3) )
+
+
+PerUserCal <- Activity2 %>%
+  group_by(Id) %>%
+  summarize(AverageCalories = mean(Calories))
+
+PerUserCal %>%
+  count(perThou = round(AverageCalories, -2) )
+
+
+# Calories burned range vs. intensities
+Activity2 %>% 
+  ggplot(Activity2, aes(x = VeryActiveDistance, y = Calories)) +
+  geom_point() +
+  geom_smooth(method = "lm", linetype = "solid", color = "pink")
+
+
+## Middle column graphs
+abc < 
+longer_data <- Activity2 %>%
+  pivot_longer(VeryActiveDistance:SedentaryActiveDistance, names_to = "Type", values_to = "Distance") %>%
+  ggplot(aes(x = Distance)) +
+  geom_bar() +
+  facet_wrap(vars(Type), ncol = 2, ) +
+  labs(x = "Response (on a 1 to 5 scale)", y = "Number of respondents")
+
+  ggplot(Activity2, aes(x = Calories, y=VeryActiveDistance)) +
+  geom_point() +
+  facet_wrap(vars(VeryActiveDistance),scales='free')
+  
+  
+  
+  
+  
+  
+Vactive <-  ggplot(data= Activity2) +
+    geom_point(mapping = aes(x=VeryActiveDistance, y=Calories))
+
+Mactive <-   ggplot(data= Activity2) +
+      geom_point(mapping = aes(x=ModeratelyActiveDistance, y=Calories))
+  
+Sactive <-  ggplot(data= Activity2) +
+    geom_point(mapping = aes(x=SedentaryActiveDistance, y=Calories))
+  
+Lactive <- ggplot(data= Activity2) +
+  geom_point(mapping = aes(x=LightActiveDistance, y=Calories))
+
+par(mfrow = c(2, 2))
+# Plots
+plot(Vactive, main = "Very Active")                   # Top left
+plot(Mactive, main = "Moderatly Active")               # Top right
+plot(Sactive, main = "Sedentary Active")                # Bottom left
+plot(Lactive, main = "Lightly Active") 
+
+
+Vactive + Mactive + Lactive + Sactive
+
+
+
+start_time <- hms("00:00:00")
+end_time <- hms("11:00:00")
+
+# Filter the data within this time range
+ZhourlyCal_filtered <- ZhourlyCal[ZhourlyCal$Time >= start_time & ZhourlyCal$Time <= end_time, ]
+
+# Plot Calories between 08:00:00 and 12:00:00
+ggplot(ZhourlyCal_filtered, aes(x = Time, y = Calories)) +
+  geom_line() +
+  labs(title = "Calories Between 12 AM and 11 AM", 
+       x = "Time", 
+       y = "Calories") +
+  theme_minimal()
+
+
+df_summary <- ZhourlyCal %>%
+  group_by(Time) %>%
+  summarise(Average_Calories = mean(Calories, na.rm = TRUE))
+
+# Bar chart
+ggplot(df_summary, aes(x = Time, y = Average_Calories)) +
+  geom_col(fill = "#69b3a2") +
+  labs(
+    title = "Average Calories Burned by Time of Day",
+    x = "Time of Day",
+    y = "Average Calories"
+  ) +
+  theme_minimal()
+
+
+#calories per hour average // Above
+
+#sleep quality
+
+df_quality <- SleepDay %>%
+  group_by(TotalSleepRecords) %>%
+  summarise(Average_Time_Asleep = mean(TotalTimeInBed, na.rm = TRUE))
+
+ggplot(df_quality, aes(x = TotalSleepRecords, y = Average_Time_Asleep)) +
+  geom_col(fill = "#69b3a2") +
+  labs(
+    title = "Disruptive Sleep",
+    x = "Amount of Sleep Records",
+    y = " Time Asleep "
+  ) +
+  theme_minimal()
+
+install.packages('reshape2')
+library(reshape2)
+
+install.packages('plotly')
+library(plotly)
+
+df_quality2 <- SleepDay  %>% select(-Id, -SleepDay)
+
+df_quality2 %>%
+  melt(value.name = 'TimeAsleep',id.vars = 'TotalSleepRecords',variable.name = 'BedTime')  %>%
+  ggplot(aes(x=TotalSleepRecords,y=TimeAsleep,fill=BedTime))+
+  labs(title = "Sleep Qulaity",caption = "* 8 hours of sleep is 480 minutes")+
+  geom_col(position = position_jitterdodge(dodge.width = 0.5,jitter.height = 0,jitter.width = 0,seed = 25)) -> gg_output
+
+
+plotly_object <- plotly::ggplotly(gg_output)
+
+plotly_object
+
+
+#=====
+#checking for null values 
+count_null_df <- sum(is.na(ZsleepDay))
+print(count_null_df)
+
+#=====
+
+#STEPSSSSSSSSSSSSSSSSSSSSSSS
+ZhourlySte <-rbind(stepshourlyMarch, stepshourlyMay)
+
+ZhourlySte <- ZhourlySte %>%
+  separate(col = ActivityHour, into = c("Date", "Time"), sep = " ", extra = "merge")
+
+ZhourlySte <- ZhourlySte %>%
+  mutate(
+    Date = as.Date(Date, format = "%m/%d/%Y"),
+  )
+# Remove extra spaces or potential formatting issues
+ZhourlySte$Time <- trimws(ZhourlySte$Time)
+
+# If there are any inconsistencies in AM/PM formatting, ensure it's consistent
+ZhourlySte$Time <- gsub("(?<=\\d)(AM|PM)", "\\1:00\\1", ZhourlySte$Time, perl = TRUE)  # Add "00" to single-hour times
+
+# Double-check the column after cleanup
+head(ZhourlySte$Time)
+
+# Convert 12-hour time to 24-h
+
+
+
+
+VAmin <- ggplot(data= Activity2) +
+    geom_point(mapping = aes(x=VeryActiveMinutes, y=Calories))
+FAmin <-  ggplot(data= Activity2) +
+    geom_point(mapping = aes(x=FairlyActiveMinutes, y=Calories))
+LAmin <-  ggplot(data= Activity2) +
+    geom_point(mapping = aes(x=LightlyActiveMinutes, y=Calories))
+SAmin <-  ggplot(data= Activity2) +
+    geom_point(mapping = aes(x=SedentaryMinutes, y=Calories))
+  
+VAmin + FAmin + LAmin + SAmin  
+
+
+
+
+
+  
+Very <- ggplot(data= Activity2) +
+  geom_smooth(mapping = aes(x=VeryActiveMinutes, y=VeryActiveDistance))
+
+Fairly <- ggplot(data= Activity2) +
+  geom_smooth(mapping = aes(x=FairlyActiveMinutes, y=ModeratelyActiveDistance))
+
+Lightly <- ggplot(data= Activity2) +
+  geom_smooth(mapping = aes(x=LightlyActiveMinutes, y=LightActiveDistance))
+
+Sedentary <- ggplot(data= Activity2) +
+  geom_smooth(mapping = aes(x=SedentaryMinutes, y=SedentaryActiveDistance))
+
+
+Very + Fairly + Lightly + Sedentary
+
+
+# create base scatter plot 
+plot(Activity2$VeryActiveDistance, Activity2$TotalDistance) 
+
+# overlay line plot  
+smooth(Activity2$SedentaryActiveDistance, Activity2$TotalDistance, col='green', lwd=2) 
+points(Activity2$ModeratelyActiveDistance, Activity2$TotalDistance, col='red', lwd=1) 
+points(Activity2$LightActiveDistance, Activity2$TotalDistance, col='blue', lty="dashed")
+
+
+ggplot() + 
+  geom_smooth(data=Activity2, aes(x=VeryActiveMinutes, y=VeryActiveDistance), color='green', label) + 
+  geom_smooth(data=Activity2, aes(x=FairlyActiveMinutes, y=ModeratelyActiveDistance), color='red') + 
+  geom_smooth(data=Activity2, aes(x=LightlyActiveMinutes, y=LightActiveDistance), color='orange') + 
+  geom_smooth(data=Activity2, aes(x=SedentaryMinutes, y=SedentaryActiveDistance), color='blue') +
+  labs(
+    x = "Minutes", 
+    y = "Disrance")
+
+
+
+Vactive2 <-  ggplot(data= Activity2) +
+  geom_point(mapping = aes(x=VeryActiveDistance, y=TotalDistance))
+
+Mactive2 <-   ggplot(data= Activity2) +
+  geom_point(mapping = aes(x=ModeratelyActiveDistance, y=TotalDistance))
+
+Sactive2 <-  ggplot(data= Activity2) +
+  geom_point(mapping = aes(x=SedentaryActiveDistance, y=TotalDistance))
+
+Lactive2 <- ggplot(data= Activity2) +
+  geom_point(mapping = aes(x=LightActiveDistance, y=TotalDistance))
+
+Vactive2 + Mactive2 + Lactive2 + Sactive2
+
+
+
+
