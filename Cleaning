@@ -1,0 +1,79 @@
+
+##Remove duplicate entries// COUNTED THE AMOUNT OF DUPLICATES THEN REMOVED 
+df %>%
+  distinct(.keep_all = TRUE)
+
+nrow(Activity[duplicated(Activity), ]) ## 0
+
+nrow(HourlyCalories[duplicated(HourlyCalories), ]) ## 175
+
+
+nrow(HourlyIntensities[duplicated(HourlyIntensities), ]) ## 175
+HourlyIntensities %>%
+  group_by_all() %>%
+  filter(n()>1) %>%
+  ungroup()
+
+nrow(Sleep[duplicated(Sleep), ]) ## 4300
+
+
+nrow(SleepDay[duplicated(SleepDay), ]) ## 3
+SleepDay %>%
+  group_by_all() %>%
+  filter(n()>1) %>%
+  ungroup()
+
+SleepDay[!duplicated(SleepDay), ]
+
+SleepDay <- SleepDay[-which(duplicated(SleepDay)), ] ## worked
+
+SleepDay %>%
+  distinct(.keep_all = TRUE)
+
+nrow(HourlySteps[duplicated(HourlySteps), ]) ## 175
+HourlySteps %>%
+  group_by_all() %>%
+  filter(n()>1) %>%
+  ungroup()
+
+nrow(MinuteIntensities[duplicated(MinuteIntensities), ]) ## 1050
+
+
+
+##Different amount of users
+userAmount <- n_distinct(Activity$Id)
+
+userAmount2 <- n_distinct(HourlyCalories$Id)
+
+userAmount3 <- n_distinct(HourlyIntensities$Id)
+
+userAmount4 <- n_distinct(HourlySteps$Id)
+
+userAmount5 <- n_distinct(Sleep$Id)### 5 has 25 users
+
+userAmount6 <- n_distinct(SleepDay$Id)### 6 has 24 users
+
+userAmount7 <- n_distinct(MinuteIntensities$Id)
+
+
+##CHECKING THE INTERVAL OF TIME NO DATE SHOULD BE BEFORE 3/12 OR AFTER 5/12; IF SO REMOVED
+
+startinterval <- '03/12/2016 00:00:00'
+endinterval <- '05/12/2016 23:59:59'
+
+
+startinterval1 <- mdy_hms(startinterval)
+endinterval2 <- mdy_hms(endinterval)
+
+as.POSIXct(endinterval,format="%m/%d/%Y %H:%M:%S",tz=Sys.timezone())
+
+class(startinterval1)
+
+print(startinterval1)
+print(startinterval2)
+
+###Analyze
+Users <- 35
+
+
+
