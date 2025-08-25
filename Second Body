@@ -1,0 +1,422 @@
+
+#calories per hour average // Above
+
+#sleep quality
+
+df_quality <- SleepDay %>%
+  group_by(TotalSleepRecords) %>%
+  summarise(Average_Time_Asleep = mean(TotalTimeInBed, na.rm = TRUE))
+
+ggplot(df_quality, aes(x = TotalSleepRecords, y = Average_Time_Asleep)) +
+  geom_col(fill = "#69b3a2") +
+  labs(
+    title = "Disruptive Sleep",
+    x = "Amount of Sleep Records",
+    y = " Time Asleep "
+  ) +
+  theme_minimal()
+
+install.packages('reshape2')
+library(reshape2)
+
+install.packages('plotly')
+library(plotly)
+
+df_quality2 <- SleepDay  %>% select(-Id, -SleepDay)
+
+df_quality2 %>%
+  melt(value.name = 'TimeAsleep',id.vars = 'TotalSleepRecords',variable.name = 'BedTime')  %>%
+  ggplot(aes(x=TotalSleepRecords,y=TimeAsleep,fill=BedTime))+
+  labs(title = "Sleep Qulaity",caption = "* 8 hours of sleep is 480 minutes")+
+  geom_col(position = position_jitterdodge(dodge.width = 0.5,jitter.height = 0,jitter.width = 0,seed = 25)) -> gg_output
+
+
+plotly_object <- plotly::ggplotly(gg_output)
+
+plotly_object
+
+
+#=====
+#checking for null values 
+count_null_df <- sum(is.na(ZsleepDay))
+print(count_null_df)
+
+#=====
+
+#STEPSSSSSSSSSSSSSSSSSSSSSSS
+ZhourlySte <-rbind(stepshourlyMarch, stepshourlyMay)
+
+ZhourlySte <- ZhourlySte %>%
+  separate(col = ActivityHour, into = c("Date", "Time"), sep = " ", extra = "merge")
+
+ZhourlySte <- ZhourlySte %>%
+  mutate(
+    Date = as.Date(Date, format = "%m/%d/%Y"),
+  )
+# Remove extra spaces or potential formatting issues
+ZhourlySte$Time <- trimws(ZhourlySte$Time)
+
+# If there are any inconsistencies in AM/PM formatting, ensure it's consistent
+ZhourlySte$Time <- gsub("(?<=\\d)(AM|PM)", "\\1:00\\1", ZhourlySte$Time, perl = TRUE)  # Add "00" to single-hour times
+
+# Double-check the column after cleanup
+head(ZhourlySte$Time)
+
+# Convert 12-hour time to 24-h
+
+
+
+
+VAmin <- ggplot(data= Activity2) +
+    geom_point(mapping = aes(x=VeryActiveMinutes, y=Calories))
+FAmin <-  ggplot(data= Activity2) +
+    geom_point(mapping = aes(x=FairlyActiveMinutes, y=Calories))
+LAmin <-  ggplot(data= Activity2) +
+    geom_point(mapping = aes(x=LightlyActiveMinutes, y=Calories))
+SAmin <-  ggplot(data= Activity2) +
+    geom_point(mapping = aes(x=SedentaryMinutes, y=Calories))
+  
+VAmin + FAmin + LAmin + SAmin  
+
+
+
+
+
+  
+Very <- ggplot(data= Activity2) +
+  geom_smooth(mapping = aes(x=VeryActiveMinutes, y=VeryActiveDistance))
+
+Fairly <- ggplot(data= Activity2) +
+  geom_smooth(mapping = aes(x=FairlyActiveMinutes, y=ModeratelyActiveDistance))
+
+Lightly <- ggplot(data= Activity2) +
+  geom_smooth(mapping = aes(x=LightlyActiveMinutes, y=LightActiveDistance))
+
+Sedentary <- ggplot(data= Activity2) +
+  geom_smooth(mapping = aes(x=SedentaryMinutes, y=SedentaryActiveDistance))
+
+
+Very + Fairly + Lightly + Sedentary
+
+
+# create base scatter plot 
+plot(Activity2$VeryActiveDistance, Activity2$TotalDistance) 
+
+# overlay line plot  
+smooth(Activity2$SedentaryActiveDistance, Activity2$TotalDistance, col='green', lwd=2) 
+points(Activity2$ModeratelyActiveDistance, Activity2$TotalDistance, col='red', lwd=1) 
+points(Activity2$LightActiveDistance, Activity2$TotalDistance, col='blue', lty="dashed")
+
+
+ggplot() + 
+  geom_smooth(data=Activity2, aes(x=VeryActiveMinutes, y=VeryActiveDistance), color='green', label) + 
+  geom_smooth(data=Activity2, aes(x=FairlyActiveMinutes, y=ModeratelyActiveDistance), color='red') + 
+  geom_smooth(data=Activity2, aes(x=LightlyActiveMinutes, y=LightActiveDistance), color='orange') + 
+  geom_smooth(data=Activity2, aes(x=SedentaryMinutes, y=SedentaryActiveDistance), color='blue') +
+  labs(
+    x = "Minutes", 
+    y = "Disrance")
+
+
+
+Vactive2 <-  ggplot(data= Activity2) +
+  geom_point(mapping = aes(x=VeryActiveDistance, y=TotalDistance))
+
+Mactive2 <-   ggplot(data= Activity2) +
+  geom_point(mapping = aes(x=ModeratelyActiveDistance, y=TotalDistance))
+
+Sactive2 <-  ggplot(data= Activity2) +
+  geom_point(mapping = aes(x=SedentaryActiveDistance, y=TotalDistance))
+
+Lactive2 <- ggplot(data= Activity2) +
+  geom_point(mapping = aes(x=LightActiveDistance, y=TotalDistance))
+
+Vactive2 + Mactive2 + Lactive2 + Sactive2
+
+
+
+
+ZhourlyCal %>% arrange(Date, Time) %>% head(10)
+duplicates <- (ZhourlyCal[duplicated(ZhourlyCal), ])
+
+
+sum(duplicated(ZhourlyCal))
+
+sum(duplicated(ZhourlyCal[c("Date", "Time")]))  # Only Date + Time
+
+
+df_dupes <- ZhourlyCal[duplicated(ZhourlyCal[c("Date", "Time")]) | duplicated(ZhourlyCal[c("Date", "Time")], fromLast = TRUE), ]
+
+df_dupes %>% 
+  arrange(Date, Time) %>% 
+  head(20)
+
+ZhourlyCal %>%
+  group_by(Date, Time) %>%
+  filter(n() > 1) %>%
+  ungroup()
+
+ZhourlyCal %>%
+  group_by(Date, Time) %>%
+  filter(n() > 1) %>%
+  arrange(Date, Time)
+
+all.equal(ZhourlyCal[1001, ], ZhourlyCal[2054, ])
+
+ZhourlyCal$Time <- round(as.numeric(ZhourlyCal$Time))
+
+
+
+start_time <- as_hms("00:00:00")
+end_time <- as_hms("11:00:00")
+
+
+df_filtered <- df[df$Time >= start_time & df$Time <= end_time, ]
+
+ZhourlyCal$Time <- format(strptime(ZhourlyCal$Time, format = "%I:%M:%S %p"), format = "%H:%M:%S")
+
+# Check the first few rows of the Time column
+head(ZhourlyCal$Time)
+
+# Check the structure of the Time column
+str(ZhourlyCal$Time)
+
+
+
+# Remove extra spaces or potential formatting issues
+ZhourlyCal$Time <- trimws(ZhourlyCal$Time)
+
+# If there are any inconsistencies in AM/PM formatting, ensure it's consistent
+ZhourlyCal$Time <- gsub("(?<=\\d)(AM|PM)", "\\1:00\\1", ZhourlyCal$Time, perl = TRUE)  # Add "00" to single-hour times
+
+# Double-check the column after cleanup
+head(ZhourlyCal$Time)
+
+# Convert 12-hour time to 24-hour time
+ZhourlyCal$Time <- format(strptime(ZhourlyCal$Time, format = "%I:%M:%S %p"), format = "%H:%M:%S")
+
+# Convert Time to hms object
+ZhourlyCal$Time <- hms(ZhourlyCal$Time)
+
+
+# Check structure and the first few rows of the Time column
+str(df$Time)
+head(df$Time)
+
+
+
+
+ZhourlyCal$Time <- as.character(ZhourlyCal$Time)
+ZhourlyCal$Time <- format(strptime(ZhourlyCal$Time, format = "%I:%M:%S %p"), format = "%H:%M:%S")
+unique(ZhourlyCal$Time)  # or head(df$Time, 20)
+
+ZhourlyCal$Time <- as_hms(ZhourlyCal$Time)
+
+
+
+
+##-------------------------------------------------------------------------------------
+
+
+# Define your time range as hms objectsour time
+ZhourlySte$Time <- format(strptime(ZhourlySte$Time, format = "%I:%M:%S %p"), format = "%H:%M:%S")
+
+# Convert Time to hms object
+ZhourlySte$Time <- as_hms(ZhourlySte$Time)
+
+# Check structure and the first few rows of the Time column
+str(ZhourlySte$Time)
+head(ZhourlySte$Time)
+
+
+ZhourlySte
+
+
+step_summary <- ZhourlySte %>%
+  group_by(Time) %>%
+  summarise(Average_Steps = mean(StepTotal, na.rm = TRUE))
+
+# Bar chart
+ggplot(step_summary, aes(x = Time, y = Average_Steps)) +
+  geom_col(fill = "#69b3a2") +
+  labs(
+    title = "Average Steps Taken by Time of Day",
+    x = "Time of Day",
+    y = "Average Steps"
+  ) +
+  theme_minimal()
+
+
+
+
+
+
+
+
+
+
+
+## INTENSITIES
+#intensities by time of day
+ZhourlyInt
+
+
+ZhourlyInt <-rbind(intensityHourlyMarch, intensityHourlyMay)
+
+ZhourlyInt <- ZhourlyInt %>%
+  separate(col = ActivityHour, into = c("Date", "Time"), sep = " ", extra = "merge")
+
+ZhourlyInt <- ZhourlyInt %>%
+  mutate(
+    Date = as.Date(Date, format = "%m/%d/%Y"),
+  )
+# Remove extra spaces or potential formatting issues
+ZhourlyInt$Time <- trimws(ZhourlyInt$Time)
+
+# If there are any inconsistencies in AM/PM formatting, ensure it's consistent
+ZhourlyInt$Time <- gsub("(?<=\\d)(AM|PM)", "\\1:00\\1", ZhourlyInt$Time, perl = TRUE)  # Add "00" to single-hour times
+
+# Double-check the column after cleanup
+head(ZhourlyInt$Time)
+
+# Convert 12-hour time to 24-hour time
+ZhourlyInt$Time <- format(strptime(ZhourlyInt$Time, format = "%I:%M:%S %p"), format = "%H:%M:%S")
+
+# Convert Time to hms object
+ZhourlyInt$Time <- as_hms(ZhourlyInt$Time)
+
+
+
+
+int_summary <- ZhourlyInt %>%
+  group_by(Time) %>%
+  summarise(Average_Intenities = mean(TotalIntensity, na.rm = TRUE))
+
+# Bar chart
+ggplot(int_summary, aes(x = Time, y = Average_Intenities)) +
+  geom_col(fill = "#69b3a2") +
+  labs(
+    title = "Average Intensiity Per Hour",
+    x = "Time of Day",
+    y = "Average Intensity"
+  ) +
+  theme_minimal()
+
+
+
+
+
+
+#intensities by weekday vs weekend
+ZhourlyInt
+
+week <- ZhourlyInt %>%
+  mutate (ActivityDate = weekdays(Date)) %>%
+  group_by(ActivityDate) %>%
+  summarize(AverageIntensity = mean(TotalIntensity)) %>%
+  mutate(ActivityDate = factor(ActivityDate, levels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")))
+
+
+ggplot(week, aes(x = ActivityDate, y = AverageIntensity)) +
+  geom_col(fill = "#69b3a2") +
+  labs(
+    title = "Average Intensity Per Hour",
+    x = "Day of the Week",
+    y = "Average Intensity"
+  ) +
+  theme_minimal()
+  
+##Think of a factor as a vector that also carries extra information about the categories (in this case, the days of the week) and their order (the levels you specified).
+int_summary <- ZhourlyInt %>%
+  group_by(weekdays(Date)) %>%
+  summarise(Average_Intenities = mean(TotalIntensity, na.rm = TRUE))
+
+# Bar chart
+ggplot(int_summary, aes(x = weekdays(Date), y = Average_Intenities)) +
+  geom_col(fill = "#69b3a2") +
+  labs(
+    title = "Average Intensiity Per Hour",
+    x = "Time of Day",
+    y = "Average Intensity"
+  ) +
+  theme_minimal()
+
+weekdays(ZhourlyInt$Date)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#sleep and intensities? or steps?
+ZhourlyInt
+
+
+
+
+
+
+
+ZsleepDay
+
+
+
+cor(Zactivity$Calories, Zactivity$TotalSteps)
+
+
+corrplot(cor(Zactivity[, c("Calories", "TotalSteps", "TotalDistance")]), method = "circle")
+
+corrplot(cor(Zactivity[, c("Calories","VeryActiveDistance", "ModeratelyActiveDistance", "LightActiveDistance", "SedentaryActiveDistance")]), method = "circle")
+
+corrplot(cor(Zactivity[, c("Calories", "TotalSteps", "TotalDistance")]), method = "circle")
+
+
+
+
+View(mtcars)
+
+
+max(Activity$ActivityDate)
+
+min(Activity$ActivityDate)
+
+max(SleepDay$SleepDay)
+
+min(SleepDay$SleepDay)
+
+SZA <- rbind(SleepDay, actMay2)
+
+
+actMay <- subset(Activity, ActivityDate >= '2016-4-12' | ActivityDate <= '2016-5-9')
+
+actMay <- subset(Activity, ActivityDate >= '2016-4-12' )
+
+actMay2 <- subset(actMay, ActivityDate <= '2016-5-9' )
+
+
+
+
+
+# Steps to Calories
+Zactivity
+
+##=========================================
+
+
+
+
+
+
+
