@@ -87,5 +87,38 @@ The data is oraganized by user and order by date. It is in a long format; Long d
 The only bias is that the data is from March to May which is when the weather becomes warmer and people start to becomemore active than when the months were November through February
 
 
- 
+ Analyzing
+
+ ```
+## Step v. Calories
+ggplot(Activity, aes(x = TotalSteps, y = Calories)) +
+  geom_point() +
+  geom_smooth(method = "lm", linetype = "solid", color = "pink")
+```
+<img width="1151" height="687" alt="image" src="https://github.com/user-attachments/assets/5aea0aab-447a-4c8b-8092-6171713f9627" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
