@@ -3,7 +3,13 @@ The business task was to seek information from trends on similar devices, and wh
 All data in this project is sourced by [Fitbit Fitness Tracker Data]{https://www.kaggle.com/datasets/arashnic/fitbit} on Kaggle 
         which had been allocated from [Zenodo]{https://zenodo.org/records/53894#.X9oeh3Uzaao}
 
-##CODE
+The source is accurate, complete, and unbiased information that has been vetted and proven fit for use
+The source is orginal the data is copied from Zenodo exactly
+That data isnt missing important information needed to answer the question or find the solution
+The data is not current it is between the months of March through May
+The data is well citied linking back to the original source of the data
+
+
 Cleaning/ manipulation of data  
 
 ``` ##Remove duplicate entries// COUNTED THE AMOUNT OF DUPLICATES THEN REMOVED 
@@ -45,8 +51,6 @@ HourlySteps %>%
 
 nrow(MinuteIntensities[duplicated(MinuteIntensities), ]) ## 1050
 
-
-
 ##Different amount of users
 userAmount <- n_distinct(Activity$Id)
 
@@ -75,19 +79,13 @@ endinterval2 <- mdy_hms(endinterval)
 as.POSIXct(endinterval,format="%m/%d/%Y %H:%M:%S",tz=Sys.timezone())
 ```
 
+The datas statment piece mentions the data gathered os only from 03.12.2016-05.12.2016; 2 months of data gathered and only in the spring time.
+This data does have some limited resourse in only providing information for 2 months and only in the beginig of the second quarter of the year; spring.
+
+The data is oraganized by user and order by date. It is in a long format; Long data is data where each row contains a single data point for a particular item
+
+The only bias is that the data is from March to May which is when the weather becomes warmer and people start to becomemore active than when the months were November through February
 
 
-
-
-
-
-
-
-
- 3. Documentation of any 
-                                                   
- 4. A summary of your analysis
-    4a. The datas statment piece mentions the data gathered os only from 03.12.2016-05.12.2016; 2 months of data gathered and only in the spring time.
-               This data does have some limited resourse in only providing information for 2 months and only in the beginig of the second quarter of the year; spring.
- 5. Supporting visualizations and key findings
+ 
 
