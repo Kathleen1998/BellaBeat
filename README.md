@@ -1,32 +1,93 @@
+The business task was to seek information from trends on similar devices, and what can inform us on how to market and influnence non Bellabeat consumer
 
-Where is your data stored? Data was stored in a Microsoft excel file csv
-How is the data organized? Is it in long or wide format? The data is organized grouped by user and order by date. It is in a long format; Long data is data where each row contains a single data point for a particular item
-Are there issues with bias or credibility in this data? Does your data ROCCC?
-How are you addressing licensing, privacy, security, and accessibility?
-How did you verify the data’s integrity?
-How does it help you answer your question? ● Are there any problems with the data?
-Deliverable A description of all data sources used
+All data in this project is sourced by [Fitbit Fitness Tracker Data]{https://www.kaggle.com/datasets/arashnic/fitbit} on Kaggle 
+        which had been allocated from [Zenodo]{https://zenodo.org/records/53894#.X9oeh3Uzaao}
 
-Process Guiding questions ● Whattoolsare you choosing and why? ● Haveyouensuredyour data’s integrity? ● Whatstepshaveyoutaken to ensure that your data is clean? ● Howcanyouverifythat your data is clean and ready to analyze? ● Haveyoudocumentedyourcleaning process so you can review and share those results? Key tasks
+##CODE
+Cleaning/ manipulation of data  
 
-Check the data for errors.
-Choose your tools.
-Transform the data so you can work with it e ectively.
-Document the cleaning process. Deliverable Documentation of any cleaning or manipulation of dataA
-Analyze Guiding questions ● Howshouldyouorganize your data to pe orm analysis on it? ● Hasyourdatabeenproperly forma ed? ● Whatsurprises did you discover in the data? ● Whattrendsorrelationships did you nd in the data? ● Howwillthese insights help answer your business questions? Key tasks
+` ##Remove duplicate entries// COUNTED THE AMOUNT OF DUPLICATES THEN REMOVED 
+df %>%
+  distinct(.keep_all = TRUE)
 
-Aggregate your data so it’s useful and accessible.
-Organize and format your data.
-Pe ormcalculations.
-Identify trends and relationships. Deliverable Asummary of your analysis
-Share
+nrow(Activity[duplicated(Activity), ]) ## 0
 
-Guiding questions ● Wereyouabletoanswer the business questions? ● Whatstorydoesyour data tell? ● Howdoyour ndingsrelateto your original question? ● Whoisyouraudience? What is the best way to communicate with them? ● Candatavisualization help you share your ndings? ● Isyourpresentation accessible to your audience? Key tasks
+nrow(HourlyCalories[duplicated(HourlyCalories), ]) ## 175
 
-Determine the best way to share your ndings.
-Create e ective data visualizations.
-Present your ndings.
-Ensure your work is accessible.
-Deliverable Suppo ing visualizations and key findings
 
-Act Guiding questions ● Whatisyour nalconclusion based on your analysis? ● Howcouldyourteamandbusiness apply your insights? ● Whatnextstepswould you or your stakeholders take based on your ndings? ● Isthere additional data you could use to expand on your ndings? Key tasks ● Createyour po folio. ● Addyourcasestudy. ● Practice presenting your case study to a friend or family member. Deliverable Your top high-level insights based on your analysis
+nrow(HourlyIntensities[duplicated(HourlyIntensities), ]) ## 175
+HourlyIntensities %>%
+  group_by_all() %>%
+  filter(n()>1) %>%
+  ungroup()
+
+nrow(Sleep[duplicated(Sleep), ]) ## 4300
+
+
+nrow(SleepDay[duplicated(SleepDay), ]) ## 3
+SleepDay %>%
+  group_by_all() %>%
+  filter(n()>1) %>%
+  ungroup()
+
+SleepDay[!duplicated(SleepDay), ]
+
+SleepDay <- SleepDay[-which(duplicated(SleepDay)), ] ## worked
+
+SleepDay %>%
+  distinct(.keep_all = TRUE)
+
+nrow(HourlySteps[duplicated(HourlySteps), ]) ## 175
+HourlySteps %>%
+  group_by_all() %>%
+  filter(n()>1) %>%
+  ungroup()
+
+nrow(MinuteIntensities[duplicated(MinuteIntensities), ]) ## 1050
+
+
+
+##Different amount of users
+userAmount <- n_distinct(Activity$Id)
+
+userAmount2 <- n_distinct(HourlyCalories$Id)
+
+userAmount3 <- n_distinct(HourlyIntensities$Id)
+
+userAmount4 <- n_distinct(HourlySteps$Id)
+
+userAmount5 <- n_distinct(Sleep$Id)### 5 has 25 users
+
+userAmount6 <- n_distinct(SleepDay$Id)### 6 has 24 users
+
+userAmount7 <- n_distinct(MinuteIntensities$Id)
+
+
+##CHECKING THE INTERVAL OF TIME NO DATE SHOULD BE BEFORE 3/12 OR AFTER 5/12; IF SO REMOVED
+
+startinterval <- '03/12/2016 00:00:00'
+endinterval <- '05/12/2016 23:59:59'
+
+
+startinterval1 <- mdy_hms(startinterval)
+endinterval2 <- mdy_hms(endinterval)
+
+as.POSIXct(endinterval,format="%m/%d/%Y %H:%M:%S",tz=Sys.timezone())
+`
+
+
+
+
+
+
+
+
+
+
+ 3. Documentation of any 
+                                                   
+ 4. A summary of your analysis
+    4a. The datas statment piece mentions the data gathered os only from 03.12.2016-05.12.2016; 2 months of data gathered and only in the spring time.
+               This data does have some limited resourse in only providing information for 2 months and only in the beginig of the second quarter of the year; spring.
+ 5. Supporting visualizations and key findings
+
