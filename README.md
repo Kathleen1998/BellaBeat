@@ -6,7 +6,7 @@ All data in this project is sourced by [Fitbit Fitness Tracker Data]{https://www
 ##CODE
 Cleaning/ manipulation of data  
 
-` ##Remove duplicate entries// COUNTED THE AMOUNT OF DUPLICATES THEN REMOVED 
+``` ##Remove duplicate entries// COUNTED THE AMOUNT OF DUPLICATES THEN REMOVED 
 df %>%
   distinct(.keep_all = TRUE)
 
@@ -73,7 +73,7 @@ startinterval1 <- mdy_hms(startinterval)
 endinterval2 <- mdy_hms(endinterval)
 
 as.POSIXct(endinterval,format="%m/%d/%Y %H:%M:%S",tz=Sys.timezone())
-`
+```
 
 
 
