@@ -253,6 +253,8 @@ plotly_object
 ```
 
 
+<img width="928" height="616" alt="image" src="https://github.com/user-attachments/assets/048ad4af-d87d-48d3-bfdc-66bb8acdcbd0" />
+
 
 
 Average steps taken by time of the day 
@@ -269,6 +271,8 @@ ggplot(step_summary, aes(x = Time, y = Average_Steps)) +
 
 
 ```
+
+<img width="1277" height="732" alt="Sleep Quality" src="https://github.com/user-attachments/assets/87045fc8-6992-4494-872b-41cc0820c337" />
 
 
 Average intensity per hour 
