@@ -289,6 +289,8 @@ ggplot(int_summary, aes(x = Time, y = Average_Intenities)) +
 
 ```
 
+<img width="753" height="732" alt="image" src="https://github.com/user-attachments/assets/bd231f61-5dbb-4126-84f6-c17ef2f5e840" />
+
 Average intemn by day 
 
 ```
