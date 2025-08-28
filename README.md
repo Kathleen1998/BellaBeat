@@ -227,7 +227,8 @@ ggplot(df_summary, aes(x = Time, y = Average_Calories)) +
   theme_minimal()
 ```
 
-<img width="938" height="558" alt="image" src="https://github.com/user-attachments/assets/91922df0-25c4-4fe1-9c0c-f510e2115f34" />
+<img width="925" height="617" alt="image" src="https://github.com/user-attachments/assets/7b4b62ee-e349-431e-bc10-6062436a640d" />
+
 
 
 Here is the participants sleep quality 
