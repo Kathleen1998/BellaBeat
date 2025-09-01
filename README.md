@@ -204,7 +204,6 @@ Lactive <- ggplot(data= Activity2) +
 ```
 
 
-<img width="751" height="447" alt="image" src="https://github.com/user-attachments/assets/44e34ec4-d1d1-4a44-8235-fda0765a73e5" />
 
 
 
