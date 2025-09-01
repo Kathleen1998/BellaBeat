@@ -175,7 +175,6 @@ endinterval2 <- mdy_hms(endinterval)
 as.POSIXct(endinterval,format="%m/%d/%Y %H:%M:%S",tz=Sys.timezone())
 ```
 
-
 ##FINDINGS
 ```
 ## Step v. Calories
@@ -184,7 +183,7 @@ ggplot(Activity, aes(x = TotalSteps, y = Calories)) +
   geom_smooth(method = "lm", linetype = "solid", color = "pink")
 
 ```
-
+<img width="751" height="447" alt="image" src="https://github.com/user-attachments/assets/44e34ec4-d1d1-4a44-8235-fda0765a73e5" />
 
 Now I wanted to find out calories burned and active distance 
 
@@ -202,9 +201,7 @@ Sactive <-  ggplot(data= Activity2) +
 Lactive <- ggplot(data= Activity2) +
   geom_point(mapping = aes(x=LightActiveDistance, y=Calories))
 ```
-
-
-
+<img width="925" height="617" alt="image" src="https://github.com/user-attachments/assets/7b4b62ee-e349-431e-bc10-6062436a640d" />
 
 
 This graph show us the average calories Burned by time of day 
@@ -226,11 +223,11 @@ ggplot(df_summary, aes(x = Time, y = Average_Calories)) +
   theme_minimal()
 ```
 
-<img width="925" height="617" alt="image" src="https://github.com/user-attachments/assets/7b4b62ee-e349-431e-bc10-6062436a640d" />
+<img width="928" height="616" alt="image" src="https://github.com/user-attachments/assets/048ad4af-d87d-48d3-bfdc-66bb8acdcbd0" />
 
 
+Here is the participants sleep quality
 
-Here is the participants sleep quality 
 ```
 df_quality <- SleepDay %>%
   group_by(TotalSleepRecords) %>%
@@ -251,8 +248,7 @@ plotly_object <- plotly::ggplotly(gg_output)
 plotly_object
 ```
 
-
-<img width="928" height="616" alt="image" src="https://github.com/user-attachments/assets/048ad4af-d87d-48d3-bfdc-66bb8acdcbd0" />
+<img width="1277" height="732" alt="Sleep Quality" src="https://github.com/user-attachments/assets/87045fc8-6992-4494-872b-41cc0820c337" />
 
 
 
@@ -271,7 +267,7 @@ ggplot(step_summary, aes(x = Time, y = Average_Steps)) +
 
 ```
 
-<img width="1277" height="732" alt="Sleep Quality" src="https://github.com/user-attachments/assets/87045fc8-6992-4494-872b-41cc0820c337" />
+<img width="753" height="732" alt="image" src="https://github.com/user-attachments/assets/bd231f61-5dbb-4126-84f6-c17ef2f5e840" />
 
 
 Average intensity per hour 
@@ -288,9 +284,10 @@ ggplot(int_summary, aes(x = Time, y = Average_Intenities)) +
 
 ```
 
-<img width="753" height="732" alt="image" src="https://github.com/user-attachments/assets/bd231f61-5dbb-4126-84f6-c17ef2f5e840" />
+<img width="1181" height="802" alt="intensity" src="https://github.com/user-attachments/assets/12049952-8912-4275-a709-8b81c5854868" />
 
-Average intemn by day 
+
+Average intensity by day 
 
 ```
 week <- ZhourlyInt %>%
@@ -311,16 +308,6 @@ ggplot(week, aes(x = ActivityDate, y = AverageIntensity)) +
 
  
 ```
-
-<img width="1181" height="802" alt="intensity" src="https://github.com/user-attachments/assets/12049952-8912-4275-a709-8b81c5854868" />
-
-
-
-
-
-
-
-
 
 
 
