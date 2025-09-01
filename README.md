@@ -308,6 +308,7 @@ ggplot(week, aes(x = ActivityDate, y = AverageIntensity)) +
 
  
 ```
+<img width="1181" height="802" alt="day" src="https://github.com/user-attachments/assets/6dd7f6f8-6c17-4d8c-832d-310b2a165ca6" />
 
 
 
