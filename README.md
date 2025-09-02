@@ -141,30 +141,6 @@ ggplot(week, aes(x = ActivityDate, y = AverageIntensity)) +
 <img width="1181" height="802" alt="day" src="https://github.com/user-attachments/assets/6dd7f6f8-6c17-4d8c-832d-310b2a165ca6" />
 
 
-##Delay per airline percentage--------------------
-
-```
-Aline <- (Total_df$Var1)
-
-Atotal <- (Total_df$Freq)
-
-Adelay <- (Delays$Total)
-
-overLap <- data.frame(Aline, Atotal, Adelay)
-
-overLap %>%
-  melt(value.name = 'DelaysVsFlights',id.vars = 'Aline',variable.name = 'Airlines')  %>%
-  ggplot(aes(x=Aline,y=DelaysVsFlights,fill=Airlines))+
-  geom_col(position = position_jitterdodge(dodge.width = 0.5,jitter.height = 0,jitter.width = 0,seed = 25)) -> gg_output
-
-
-plotly_object <- plotly::ggplotly(gg_output)
-
-plotly_object
-```
-
-<img width="910" height="732" alt="delaysnondelays" src="https://github.com/user-attachments/assets/b41a3db8-9844-4499-83fc-983b03691c19" />
-
 
 
 
