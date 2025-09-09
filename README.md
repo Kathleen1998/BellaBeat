@@ -16,7 +16,7 @@ ggplot(Activity, aes(x = TotalSteps, y = Calories)) +
 <img width="751" height="447" alt="image" src="https://github.com/user-attachments/assets/44e34ec4-d1d1-4a44-8235-fda0765a73e5" />
 
 Now I wanted to find out calories burned and active distance 
-
+There's a strong correlation between the number of steps taken and the calories burned. To encourage users, the Bellabeat app can send notifications that highlight this relationship. These messages can remind users that the more they move, the more calories they burn, helping them stay motivated and reach their goals.
 ```
   
 Vactive <-  ggplot(data= Activity2) +
@@ -33,8 +33,11 @@ Lactive <- ggplot(data= Activity2) +
 ```
 <img width="925" height="617" alt="image" src="https://github.com/user-attachments/assets/7b4b62ee-e349-431e-bc10-6062436a640d" />
 
-
 This graph show us the average calories Burned by time of day 
+
+This data shows that users tend to be most active around noon and in the early evening from 5 p.m. to 7 p.m. This pattern is consistent across several metrics, including **average steps taken**, **intensity per hour**, and **calories burned**. There's a notable dip in activity and calories burned around 3 p.m.
+The data also shows that users are most active on Mondays, Fridays, and Sundays. Sunday is often a rest or lighter activity day for many people, while Mondays and Fridays tend to be lower intensity days, possibly due to a lack of motivation.
+To address these trends, Bellabeat could implement a gamified system with achievements and a point system. Users could compete with friends and family, which could provide extra motivation, especially on days when activity levels tend to be lower.
 
 ```
 df_summary <- ZhourlyCal %>%
@@ -57,6 +60,9 @@ ggplot(df_summary, aes(x = Time, y = Average_Calories)) +
 
 
 Here is the participants sleep quality
+Users who sleep through the night tend to sleep for longer periods. The data also reveals a group of users who wake up multiple times during the night. For these users, the app could offer a few suggestions:
+Suggest a consultation with a healthcare provider- if they frequently wake up during the night.
+Recommend incorporating more physical activity-into their daily routine to help them feel more tired at bedtime.
 
 ```
 df_quality <- SleepDay %>%
