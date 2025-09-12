@@ -12,6 +12,8 @@ ggplot(Activity, aes(x = TotalSteps, y = Calories)) +
   geom_point() +
   geom_smooth(method = "lm", linetype = "solid", color = "pink")
 
+##creating a satter plot with the x axis as the number of steps and the y being calories 
+
 ```
 <img width="751" height="447" alt="image" src="https://github.com/user-attachments/assets/44e34ec4-d1d1-4a44-8235-fda0765a73e5" />
 
@@ -30,6 +32,9 @@ Sactive <-  ggplot(data= Activity2) +
   
 Lactive <- ggplot(data= Activity2) +
   geom_point(mapping = aes(x=LightActiveDistance, y=Calories))
+
+## Creating 4 differnt plots and adding them all together for simplicity
+## First scatter plot being VeryActiveDistance as the X aes and Y being the calories, then moderat active and calories, light activity and lastly sedentary
 ```
 <img width="925" height="617" alt="image" src="https://github.com/user-attachments/assets/7b4b62ee-e349-431e-bc10-6062436a640d" />
 
