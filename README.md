@@ -90,6 +90,10 @@ df_quality2 %>%
 plotly_object <- plotly::ggplotly(gg_output)
 
 plotly_object
+## Creating an overlaping par chart to see both the amount of time a person is in bed and how long the are asleep.
+## x being the time asleep and y being the amount of time they wake up in the night
+
+
 ```
 
 <img width="1277" height="732" alt="Sleep Quality" src="https://github.com/user-attachments/assets/87045fc8-6992-4494-872b-41cc0820c337" />
@@ -107,7 +111,8 @@ ggplot(step_summary, aes(x = Time, y = Average_Steps)) +
     y = "Average Steps"
   ) +
   theme_minimal()
-
+## Creating a bar chart of the avg steps taken by time of day to find when the lowest and hightest time are 
+## 
 
 ```
 
@@ -125,7 +130,7 @@ ggplot(int_summary, aes(x = Time, y = Average_Intenities)) +
     y = "Average Intensity"
   ) +
   theme_minimal()
-
+## this creates a bar chart of avg intenisity to see when people are at thier most active or least. 
 ```
 
 <img width="1181" height="802" alt="intensity" src="https://github.com/user-attachments/assets/12049952-8912-4275-a709-8b81c5854868" />
@@ -149,7 +154,7 @@ ggplot(week, aes(x = ActivityDate, y = AverageIntensity)) +
     y = "Average Intensity"
   ) +
   theme_minimal()
-
+## this creates a bar chart of avg intenisity by day of the week to see when people are their most and least active.
  
 ```
 <img width="1181" height="802" alt="day" src="https://github.com/user-attachments/assets/6dd7f6f8-6c17-4d8c-832d-310b2a165ca6" />
