@@ -45,11 +45,10 @@ The data also shows that users are most active on Mondays, Fridays, and Sundays.
 To address these trends, Bellabeat could implement a gamified system with achievements and a point system. Users could compete with friends and family, which could provide extra motivation, especially on days when activity levels tend to be lower.
 
 ```
-df_summary <- ZhourlyCal %>%
+HourlyCal %>%
   group_by(Time) %>%
   summarise(Average_Calories = mean(Calories, na.rm = TRUE))
-
-
+# extracting data from HourlyCal to put group time and calculate the average calories 
 
 ggplot(df_summary, aes(x = Time, y = Average_Calories)) +
   geom_col(fill = "#69b3a2") +
@@ -59,6 +58,8 @@ ggplot(df_summary, aes(x = Time, y = Average_Calories)) +
     y = "Average Calories"
   ) +
   theme_minimal()
+#Creating a bar chart with x being time and Y being Average calories to find avg calories burned by the hour
+
 ```
 
 <img width="928" height="616" alt="image" src="https://github.com/user-attachments/assets/048ad4af-d87d-48d3-bfdc-66bb8acdcbd0" />
@@ -73,9 +74,11 @@ Recommend incorporating more physical activity-into their daily routine to help 
 df_quality <- SleepDay %>%
   group_by(TotalSleepRecords) %>%
   summarise(Average_Time_Asleep = mean(TotalTimeInBed, na.rm = TRUE))
-
+#extracts, counts and averages the total sleep record to find how many people wake up in the night
 
 df_quality2 <- SleepDay  %>% select(-Id, -SleepDay)
+#extracting colums not need for the plot
+
 
 df_quality2 %>%
   melt(value.name = 'TimeAsleep',id.vars = 'TotalSleepRecords',variable.name = 'BedTime')  %>%
